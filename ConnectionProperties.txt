@@ -1,0 +1,4 @@
+dbUrl=jdbc:mysql://104.131.152.228/crowdrunner
+useSSL=false
+user=user
+password=497CrowdRunner
