@@ -1,6 +1,6 @@
 package storage;
 
-import java.sql.Timestamp;
+import java.sql.Date;
 
 /**
  * Storage class for a challenge
@@ -11,10 +11,10 @@ public class Challenge {
 
     public int id;
     public String title;
-    public Timestamp startDate, endDate;
+    public Date startDate, endDate;
     public int totalDistance, completedDistance;
 
-    public Challenge(int id, String title, Timestamp startDate, Timestamp endDate,
+    public Challenge(int id, String title, Date startDate, Date endDate,
                      int totalDistance, int completedDistance) {
         this.id = id;
         this.title = title;

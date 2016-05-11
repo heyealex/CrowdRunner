@@ -53,6 +53,8 @@ public class SQLConnection {
                 statement.setInt(i + 1, (Integer) args[i]);
             } else if (args[i] instanceof Date) {
                 statement.setDate(i + 1, (Date) args[i]);
+            } else if (args[i] instanceof Timestamp) {
+                statement.setTimestamp(i + 1, (Timestamp) args[i]);
             }
         }
         return statement.executeQuery();
@@ -73,6 +75,8 @@ public class SQLConnection {
                 statement.setInt(i + 1, (Integer) args[i]);
             } else if (args[i] instanceof Date) {
                 statement.setDate(i + 1, (Date) args[i]);
+            } else if (args[i] instanceof Timestamp) {
+                statement.setTimestamp(i + 1, (Timestamp) args[i]);
             }
         }
         statement.executeUpdate();

@@ -1,11 +1,13 @@
 package sql;
 
+import storage.Challenge;
 import storage.User;
 
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 
 /**
  * Contains functions that manipulate and query the database
@@ -106,15 +108,38 @@ public class DBInterface {
 
     /**
      * Remove challenge from database
-     * @param id
+     * @param title
+     * @param start
      * @throws IOException
      * @throws SQLException
      */
-    public static void removeChallenge(int id) throws IOException, SQLException {
+    public static void removeChallenge(String title, Date start) throws IOException, SQLException {
         verifyConnection();
         connection.executeUpdate(
-                "delete from challenge where id = ?", id
+                "delete from challenge where title = ? and start_date = ?", title, start
         );
     }
+
+    /**
+     * Retrieve challenge from database. Return null if challenge doesn't exist
+     * @param title
+     * @param start
+     * @return Challenge
+     * @throws IOException
+     * @throws SQLException
+     */
+    public static Challenge getChallenge(String title, Date start) throws IOException, SQLException {
+        verifyConnection();
+        ResultSet rs = connection.executeQuery(
+                "select * from challenge where title = ? and start_date = ?", title, start
+        );
+        if (rs.next()) {
+            return new Challenge(rs.getInt(1), rs.getString(2), rs.getDate(3), rs.getDate(4),
+                    rs.getInt(5), rs.getInt(6));
+        }
+        return null;
+    }
+
+
 
 }
