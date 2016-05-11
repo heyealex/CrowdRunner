@@ -23,4 +23,10 @@ public class Challenge {
         this.completedDistance = completedDistance;
     }
 
+    @Override
+    public String toString() {
+        return String.format("Challenge; id: %d; title: %s; totalDistance: %d; completedDistance: %d",
+                                challengeID, title, totalDistance, completedDistance);
+    }
+
 }

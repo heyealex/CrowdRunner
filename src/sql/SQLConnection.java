@@ -39,6 +39,7 @@ public class SQLConnection {
 
     public ResultSet executeQuery(String query, Object... args) throws SQLException {
         if (args.length != countChars(query, '?')) {
+            System.err.println("Wrong number of arguments to executeQuery");
             return null;
         }
         PreparedStatement statement = connection.prepareStatement(query);
@@ -52,35 +53,29 @@ public class SQLConnection {
                 statement.setInt(i + 1, (Integer) args[i]);
             } else if (args[i] instanceof Date) {
                 statement.setDate(i + 1, (Date) args[i]);
-            } else if (args[i] == null) {
-                statement.setNull(i + 1, Types.INTEGER);
             }
         }
         return statement.executeQuery();
     }
 
-    public boolean executeUpdate(String update, Object... args) {
+    public boolean executeUpdate(String update, Object... args) throws SQLException {
         if (args.length != countChars(update, '?')) {
+            System.err.println("Wrong number of arguments to executeUpdate");
             return false;
         }
-        try {
-            PreparedStatement statement = connection.prepareStatement(update);
-            for (int i = 0; i < args.length; i++) {
-                if (args[i] instanceof String) {
-                    statement.setString(i + 1, (String) args[i]);
-                } else if (args[i] instanceof Boolean) {
-                    statement.setBoolean(i + 1, (Boolean) args[i]);
-                } else if (args[i] instanceof Integer) {
-                    statement.setInt(i + 1, (Integer) args[i]);
-                } else if (args[i] instanceof Date) {
-                    statement.setDate(i + 1, (Date) args[i]);
-                }
+        PreparedStatement statement = connection.prepareStatement(update);
+        for (int i = 0; i < args.length; i++) {
+            if (args[i] instanceof String) {
+                statement.setString(i + 1, (String) args[i]);
+            } else if (args[i] instanceof Boolean) {
+                statement.setBoolean(i + 1, (Boolean) args[i]);
+            } else if (args[i] instanceof Integer) {
+                statement.setInt(i + 1, (Integer) args[i]);
+            } else if (args[i] instanceof Date) {
+                statement.setDate(i + 1, (Date) args[i]);
             }
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            System.err.println(e.getMessage());
-            return false;
         }
+        statement.executeUpdate();
         return true;
     }
 

@@ -21,4 +21,10 @@ public class Activity {
         this.activityType = activityType;
     }
 
+    @Override
+    public String toString() {
+        return String.format("Activity; id: %d; distance: %d; activityType: %s",
+                                userID, distance, activityType);
+    }
+
 }
