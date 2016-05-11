@@ -8,7 +8,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * Created by Matthew on 5/10/2016.
+ * Contains functions that manipulate and query the database
+ *
+ * Author: Matthew Erickson
  */
 public class DBInterface {
 
@@ -69,7 +71,7 @@ public class DBInterface {
     /**
      * Retrieve User from database. Returns null if user doesn't exist
      * @param email
-     * @return
+     * @return User
      * @throws IOException
      * @throws SQLException
      */
@@ -83,6 +85,36 @@ public class DBInterface {
                     rs.getInt(5), rs.getInt(6), rs.getInt(7), rs.getInt(8));
         }
         return null;
+    }
+
+    /**
+     * Add challenge to database
+     * @param title
+     * @param startDate
+     * @param endDate
+     * @param totalDistance
+     * @throws IOException
+     * @throws SQLException
+     */
+    public static void addChallenge(String title, Date startDate, Date endDate, int totalDistance) throws IOException, SQLException {
+        verifyConnection();
+        connection.executeUpdate(
+                "insert into challenge (title, start_date, end_date, completed_distance, total_distance) values (?, ?, ?, ?, ?);",
+                title, startDate, endDate, 0, totalDistance
+        );
+    }
+
+    /**
+     * Remove challenge from database
+     * @param id
+     * @throws IOException
+     * @throws SQLException
+     */
+    public static void removeChallenge(int id) throws IOException, SQLException {
+        verifyConnection();
+        connection.executeUpdate(
+                "delete from challenge where id = ?", id
+        );
     }
 
 }

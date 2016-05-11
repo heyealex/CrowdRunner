@@ -3,8 +3,9 @@ package storage;
 import java.sql.Date;
 
 /**
- * Created by Matthew on 5/10/2016.
  * Storage class for a user
+ *
+ * Author: Matthew Erickson
  */
 public class User {
 
@@ -12,18 +13,18 @@ public class User {
     public String name;
     public Date birthDate, joinDate;
     public int selfChallenge;
-    public int group1ID, group2ID, group3ID;
+    public int crowd1ID, crowd2ID, crowd3ID;
 
     public User(String email, String name, Date birthDate, Date joinDate, int selfChallenge,
-                int group1ID, int group2ID, int group3ID) {
+                int crowd1ID, int crowd2ID, int crowd3ID) {
         this.email = email;
         this.name = name;
         this.birthDate = birthDate;
         this.joinDate = joinDate;
         this.selfChallenge = selfChallenge;
-        this.group1ID = group1ID;
-        this.group2ID = group2ID;
-        this.group3ID = group3ID;
+        this.crowd1ID = crowd1ID;
+        this.crowd2ID = crowd2ID;
+        this.crowd3ID = crowd3ID;
     }
 
     @Override

@@ -5,18 +5,29 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 /**
- * Created by Matthew on 5/10/2016.
+ * Driver test class
+ *
+ * Author: Matthew Erickson
  */
 public class Driver {
 
     public static void main(String[] args) {
+        testUserAdd();
+    }
+
+    private static void testUserAdd() {
+        String testEmail = "user-" + System.nanoTime() + "@gmail.com";
+        String name = "User";
+        String birthDate = "1994-01-01";
         try {
-            DBInterface.addUser("matterickson915@gmail.com", "Matt", "1994-06-30");
-            User matt = DBInterface.getUser("matterickson915@gmail.com");
-            System.out.println(matt);
-            DBInterface.removeUser("matterickson915@gmail.com");
+            DBInterface.addUser(testEmail, name, birthDate);
+            User user = DBInterface.getUser(testEmail);
+            if (user != null) {
+                System.out.println("Add User: Pass");
+                DBInterface.removeUser(user.email);
+            }
         } catch (IOException | SQLException e) {
-            System.err.println("Main error: " + e.getMessage());
+            System.out.printf("Add User: Failed (%s)%n", e.getMessage());
         }
     }
 

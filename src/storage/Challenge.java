@@ -3,19 +3,20 @@ package storage;
 import java.sql.Timestamp;
 
 /**
- * Created by Matthew on 5/10/2016.
  * Storage class for a challenge
+ *
+ * Author: Matthew Erickson
  */
 public class Challenge {
 
-    public int challengeID;
+    public int id;
     public String title;
     public Timestamp startDate, endDate;
     public int totalDistance, completedDistance;
 
-    public Challenge(int challengeID, String title, Timestamp startDate, Timestamp endDate,
+    public Challenge(int id, String title, Timestamp startDate, Timestamp endDate,
                      int totalDistance, int completedDistance) {
-        this.challengeID = challengeID;
+        this.id = id;
         this.title = title;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -26,7 +27,7 @@ public class Challenge {
     @Override
     public String toString() {
         return String.format("Challenge; id: %d; title: %s; totalDistance: %d; completedDistance: %d",
-                                challengeID, title, totalDistance, completedDistance);
+                id, title, totalDistance, completedDistance);
     }
 
 }

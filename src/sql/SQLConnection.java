@@ -7,8 +7,9 @@ import java.sql.*;
 import java.util.Properties;
 
 /**
- * Created by Matthew on 5/10/2016.
  * Simple interface for accessing the database
+ *
+ * Author: Matthew Erickson
  */
 public class SQLConnection {
 
@@ -24,7 +25,6 @@ public class SQLConnection {
 
     public SQLConnection(String configFileName) throws IOException, SQLException {
         InputStream stream = this.getClass().getClassLoader().getResourceAsStream(configFileName);
-
         if (stream == null) {
             stream = new FileInputStream(DEFAULT_CONFIG);
         }

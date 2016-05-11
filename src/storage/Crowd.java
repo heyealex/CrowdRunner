@@ -3,26 +3,27 @@ package storage;
 import java.sql.Date;
 
 /**
- * Created by Matthew on 5/10/2016.
- * Storage class for a group
+ * Storage class for a crowd (AKA Group but that's a reserved word in SQL)
+ *
+ * Author: Matthew Erickson
  */
 public class Crowd {
 
-    public int groupID;
     public String name;
     public Date joinDate;
+    public int challengeID;
     public int adminID;
 
-    public Crowd(int groupID, String name, Date joinDate, int adminID) {
-        this.groupID = groupID;
+    public Crowd(String name, Date joinDate, int challengeID, int adminID) {
         this.name = name;
         this.joinDate = joinDate;
+        this.challengeID = challengeID;
         this.adminID = adminID;
     }
 
     @Override
     public String toString() {
-        return String.format("Crowd; id: %d; name: %s; admin: %d", groupID, name, adminID);
+        return String.format("Crowd; name: %s; admin: %d; challenge: %d", name, adminID, challengeID);
     }
 
 }
