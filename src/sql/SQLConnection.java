@@ -19,10 +19,21 @@ public class SQLConnection {
     private Properties properties = new Properties();
     private Connection connection;
 
+    /**
+     * Calls constructor with default config file name
+     * @throws IOException
+     * @throws SQLException
+     */
     public SQLConnection() throws IOException, SQLException {
         this(DEFAULT_CONFIG);
     }
 
+    /**
+     * Loads properties file from configFileName and calls connect()
+     * @param configFileName
+     * @throws IOException
+     * @throws SQLException
+     */
     public SQLConnection(String configFileName) throws IOException, SQLException {
         InputStream stream = this.getClass().getClassLoader().getResourceAsStream(configFileName);
         if (stream == null) {
@@ -32,18 +43,28 @@ public class SQLConnection {
         connect();
     }
 
+    /**
+     * Attempt to connect to database
+     * @throws SQLException
+     */
     private void connect() throws SQLException {
         String databaseUrl = properties.getProperty(DB_URL);
         connection = DriverManager.getConnection(databaseUrl, properties);
     }
 
+    /**
+     * Executes query using prepared statements
+     * @param query
+     * @param args
+     * @return ResultSet
+     * @throws SQLException
+     */
     public ResultSet executeQuery(String query, Object... args) throws SQLException {
         if (args.length != countChars(query, '?')) {
             System.err.println("Wrong number of arguments to executeQuery");
             return null;
         }
         PreparedStatement statement = connection.prepareStatement(query);
-        //statement.setQueryTimeout(1);
         for (int i = 0; i < args.length; i++) {
             if (args[i] instanceof String) {
                 statement.setString(i + 1, (String) args[i]);
@@ -60,6 +81,13 @@ public class SQLConnection {
         return statement.executeQuery();
     }
 
+    /**
+     * Executes update using prepared statements. Returns if update was successful
+     * @param update
+     * @param args
+     * @return boolean
+     * @throws SQLException
+     */
     public boolean executeUpdate(String update, Object... args) throws SQLException {
         if (args.length != countChars(update, '?')) {
             System.err.println("Wrong number of arguments to executeUpdate");
@@ -83,6 +111,12 @@ public class SQLConnection {
         return true;
     }
 
+    /**
+     * Helper function for using prepared statements
+     * @param query
+     * @param c
+     * @return
+     */
     private int countChars(String query, char c) {
         int count = 0;
         for (int i = 0; i < query.length(); i++) {
@@ -93,6 +127,10 @@ public class SQLConnection {
         return count;
     }
 
+    /**
+     * Checks if connection is closed
+     * @return
+     */
     public boolean isClosed() {
         try {
             return !connection.isValid(1);
@@ -101,6 +139,9 @@ public class SQLConnection {
         }
     }
 
+    /**
+     * Close the connection
+     */
     public void close() {
         try {
             connection.close();
@@ -110,6 +151,9 @@ public class SQLConnection {
         }
     }
 
+    /**
+     * Restart the connection
+     */
     public void restart() {
         try {
             connect();

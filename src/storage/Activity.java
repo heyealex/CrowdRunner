@@ -10,14 +10,14 @@ import java.sql.Timestamp;
 public class Activity {
 
     public int id;
-    public int userID;
+    public String userEmail;
     public Timestamp startDate, finishDate;
     public int distance;
     public String activityType;
 
-    public Activity(int id, int userID, Timestamp startDate, Timestamp finishDate, int distance, String activityType) {
+    public Activity(int id, String userEmail, Timestamp startDate, Timestamp finishDate, int distance, String activityType) {
         this.id = id;
-        this.userID = userID;
+        this.userEmail = userEmail;
         this.startDate = startDate;
         this.finishDate = finishDate;
         this.distance = distance;
@@ -26,8 +26,8 @@ public class Activity {
 
     @Override
     public String toString() {
-        return String.format("Activity; id: %d; userID: %d; distance: %d; activityType: %s",
-                                id, userID, distance, activityType);
+        return String.format("Activity; id: %d; userEmail: %s; distance: %d; activityType: %s",
+                                id, userEmail, distance, activityType);
     }
 
 }

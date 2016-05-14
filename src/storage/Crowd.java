@@ -9,21 +9,21 @@ import java.sql.Date;
  */
 public class Crowd {
 
+    public int id;
     public String name;
     public Date joinDate;
-    public int challengeID;
-    public int adminID;
+    public String adminEmail;
 
-    public Crowd(String name, Date joinDate, int challengeID, int adminID) {
+    public Crowd(int id, String name, Date joinDate, String adminEmail) {
+        this.id = id;
         this.name = name;
         this.joinDate = joinDate;
-        this.challengeID = challengeID;
-        this.adminID = adminID;
+        this.adminEmail = adminEmail;
     }
 
     @Override
     public String toString() {
-        return String.format("Crowd; name: %s; admin: %d; challenge: %d", name, adminID, challengeID);
+        return String.format("Crowd; name: %s; admin: %s;", name, adminEmail);
     }
 
 }

@@ -1,7 +1,6 @@
 package sql;
 
-import storage.Challenge;
-import storage.User;
+import storage.*;
 
 import java.io.IOException;
 import java.sql.Date;
@@ -26,8 +25,12 @@ public class DBInterface {
      * @throws IOException
      * @throws SQLException
      */
-    public static void init() throws IOException, SQLException {
-        verifyConnection();
+    public static void init() {
+        try {
+            verifyConnection();
+        } catch (IOException | SQLException e) {
+            System.err.println(e.getMessage());
+        }
     }
 
     /**
@@ -36,13 +39,15 @@ public class DBInterface {
      * @throws SQLException
      */
     private static void verifyConnection() throws IOException, SQLException {
-        if (connection == null || connection.isClosed()) {
+        if (connection == null) {
             connection = new SQLConnection();
+        } else if (connection.isClosed()) {
+            connection.restart();
         }
     }
 
     /**
-     * Add user to database
+     * Add User to database
      * @param email
      * @param name
      * @param birthDate
@@ -52,13 +57,13 @@ public class DBInterface {
     public static void addUser(String email, String name, String birthDate) throws IOException, SQLException {
         verifyConnection();
         connection.executeUpdate(
-                "insert into user (email, name, birth_date, join_date) values (?, ?, ?, ?);",
+                "insert into User (email, name, birth_date, join_date) values (?, ?, ?, ?);",
                 email, name, birthDate, new Date(System.currentTimeMillis())
         );
     }
 
     /**
-     * Remove user from database
+     * Remove User from database
      * @param email
      * @throws IOException
      * @throws SQLException
@@ -66,12 +71,12 @@ public class DBInterface {
     public static void removeUser(String email) throws IOException, SQLException {
         verifyConnection();
         connection.executeUpdate(
-                "delete from user where email = ?", email
+                "delete from User where email = ?", email
         );
     }
 
     /**
-     * Retrieve User from database. Returns null if user doesn't exist
+     * Retrieve User from database. Returns null if User doesn't exist
      * @param email
      * @return User
      * @throws IOException
@@ -80,17 +85,254 @@ public class DBInterface {
     public static User getUser(String email) throws IOException, SQLException {
         verifyConnection();
         ResultSet rs = connection.executeQuery(
-                "select * from user where email = ?", email
+                "select * from User where email = ?", email
         );
         if (rs.next()) {
             return new User(rs.getString(1), rs.getString(2), rs.getDate(3), rs.getDate(4),
-                    rs.getInt(5), rs.getInt(6), rs.getInt(7), rs.getInt(8));
+                    rs.getInt(5), rs.getInt(6), rs.getInt(7));
         }
         return null;
     }
 
     /**
-     * Add challenge to database
+     * Add Crowd to database if user has a free crowd slot
+     * Set free crowd slot for this user if successful
+     * @param name
+     * @param adminEmail
+     * @throws IOException
+     * @throws SQLException
+     */
+    public static void addCrowd(String name, String adminEmail) throws IOException, SQLException {
+        verifyConnection();
+        User user = getUser(adminEmail);
+        if (user == null) {
+            System.err.println("User " + adminEmail + " doesn't exist");
+            return;
+        }
+
+        String freeCrowdSlot = findFreeSlot(user, -1);
+        if (freeCrowdSlot == null) {
+            System.err.println("No free crowd slot for " + adminEmail);
+            return;
+        }
+
+        connection.executeUpdate(
+                "insert into Crowd (name, join_date, admin_id) values (?, ?, ?)",
+                name, new Date(System.currentTimeMillis()), adminEmail
+        );
+        Crowd crowd = getCrowd(name, adminEmail);
+        if (crowd == null) {
+            System.err.println("Crowd " + name + " not added");
+            return;
+        }
+        connection.executeUpdate(
+                "update User set " + freeCrowdSlot + " = ? where email = ?",
+                crowd.id, adminEmail
+        );
+    }
+
+    /**
+     * Remove Crowd from database
+     * @param name
+     * @param adminEmail
+     * @throws IOException
+     * @throws SQLException
+     */
+    public static void removeCrowd(String name, String adminEmail) throws IOException, SQLException {
+        verifyConnection();
+        Crowd crowd = getCrowd(name, adminEmail);
+        if (crowd == null) return;
+
+        /* clear crowd slot 1 for all users with this crowd id */
+        connection.executeUpdate(
+                "update User set crowd1_id = 0 where crowd1_id = ?", crowd.id
+        );
+
+        /* clear crowd slot 2 for all users with this crowd id */
+        connection.executeUpdate(
+                "update User set crowd2_id = 0 where crowd2_id = ?", crowd.id
+        );
+
+        /* clear crowd slot 3 for all users with this crowd id */
+        connection.executeUpdate(
+                "update User set crowd3_id = 0 where crowd3_id = ?", crowd.id
+        );
+
+        connection.executeUpdate(
+                "delete from Crowd where id = ?", crowd.id
+        );
+    }
+
+    /**
+     * Retrieve Crowd from database. Returns null if Crowd doesn't exist
+     * @param name
+     * @param adminEmail
+     * @return Crowd
+     * @throws IOException
+     * @throws SQLException
+     */
+    public static Crowd getCrowd(String name, String adminEmail) throws IOException, SQLException {
+        verifyConnection();
+        ResultSet rs = connection.executeQuery(
+                "select * from Crowd where name = ? and admin_id = ?", name, adminEmail
+        );
+        if (rs.next()) {
+            return new Crowd(rs.getInt(1), rs.getString(2), rs.getDate(3), rs.getString(4));
+        }
+        return null;
+    }
+
+    /**
+     * Retrieve Crowd from database. Returns null if Crowd doesn't exist
+     * @param crowdID
+     * @return Crowd
+     * @throws IOException
+     * @throws SQLException
+     */
+    public static Crowd getCrowd(int crowdID) throws IOException, SQLException {
+        verifyConnection();
+        ResultSet rs = connection.executeQuery(
+                "select * from Crowd where id = ?", crowdID
+        );
+        if (rs.next()) {
+            return new Crowd(rs.getInt(1), rs.getString(2), rs.getDate(3), rs.getString(5));
+        }
+        return null;
+    }
+
+    /**
+     * For the provided User, attempt to join the given Crowd
+     * @param userEmail
+     * @param crowd
+     * @throws IOException
+     * @throws SQLException
+     */
+    public static void userJoinCrowd(String userEmail, Crowd crowd) throws IOException, SQLException {
+        verifyConnection();
+        User user = getUser(userEmail);
+        if (user == null) {
+            System.err.println("User doesn't exist");
+            return;
+        }
+        String freeCrowdSlot = findFreeSlot(user, crowd.id);
+        if (freeCrowdSlot == null) {
+            System.err.println("No free crowd slot for " + userEmail);
+        } else {
+            connection.executeUpdate(
+                    "update User set " + freeCrowdSlot + " = ? where email = ?",
+                    crowd.id, userEmail
+            );
+        }
+    }
+
+    /**
+     * Returns the column name for the given User in which a new Crowd can be added
+     * @param user
+     * @param id
+     * @return
+     */
+    private static String findFreeSlot(User user, int id) {
+        if (user.crowd1ID == id || user.crowd2ID == id || user.crowd3ID == id) {
+            return null;
+        }
+        return (user.crowd1ID == 0 ? "crowd1_id" : (user.crowd2ID == 0 ? "crowd2_id" :
+                (user.crowd3ID == 0 ? "crowd3_id" : null)));
+    }
+
+    /**
+     * Add Activity to database
+     * @param userEmail
+     * @param startDate
+     * @param finishDate
+     * @param distance
+     * @param activityType
+     * @throws IOException
+     * @throws SQLException
+     */
+    public static void addActivity(String userEmail, Timestamp startDate, Timestamp finishDate, int distance, String activityType) throws IOException, SQLException {
+        verifyConnection();
+        User user = getUser(userEmail);
+        if (user == null) {
+            System.err.println("Cannot add activity for non-existent user");
+            return;
+        }
+        connection.executeUpdate(
+                "insert into Activity (user_email, start_date, finish_date, distance, activity_type) value (?, ?, ?, ?, ?)",
+                userEmail, startDate, finishDate, distance, activityType
+        );
+
+        /* Apply activity benefit to personal challenge */
+        /* TO-DO */
+
+        /* Apply activity benefit to crowds */
+        if (user.crowd1ID != 0) {
+            applyBenefit(user.crowd1ID, distance);
+        }
+        if (user.crowd2ID != 0) {
+            applyBenefit(user.crowd2ID, distance);
+        }
+        if (user.crowd3ID != 0) {
+            applyBenefit(user.crowd3ID, distance);
+        }
+    }
+
+    /**
+     * Adds Activity distance towards a CrowdChallenge
+     * @param crowdID
+     * @param distance
+     * @throws IOException
+     * @throws SQLException
+     */
+    private static void applyBenefit(int crowdID, int distance) throws IOException, SQLException {
+        Date now = new Date(System.currentTimeMillis());
+        ResultSet rs = connection.executeQuery(
+                "select * from CrowdChallenge where crowd_id = ? and ? between start_date and end_date", crowdID, now
+        );
+        if (rs.next()) {
+            CrowdChallenge challenge = new CrowdChallenge(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getDate(4),
+                    rs.getDate(5), rs.getInt(6), rs.getInt(7));
+            connection.executeUpdate(
+                    "update CrowdChallenge set completed_distance = completed_distance + ? where id = ?", distance, challenge.id
+            );
+        } else {
+            System.err.println("No current challenges");
+        }
+    }
+
+    /**
+     * Remove Activity from database
+     * @param id
+     * @throws IOException
+     * @throws SQLException
+     */
+    public static void removeActivity(int id) throws IOException, SQLException {
+        verifyConnection();
+        connection.executeUpdate(
+                "delete from Activity where id = ?", id
+        );
+    }
+
+    /**
+     * Retrieve Activity from database
+     * @param id
+     * @return Activity
+     * @throws IOException
+     * @throws SQLException
+     */
+    public static Activity getActivity(int id) throws IOException, SQLException {
+        verifyConnection();
+        ResultSet rs = connection.executeQuery(
+                "select * from Activity where id = ?", id
+        );
+        if (rs.next()) {
+            return new Activity(rs.getInt(1), rs.getString(2), rs.getTimestamp(3), rs.getTimestamp(4), rs.getInt(5), rs.getString(6));
+        }
+        return null;
+    }
+
+    /**
+     * Add CrowdChallenge to the database
+     * @param crowdID
      * @param title
      * @param startDate
      * @param endDate
@@ -98,48 +340,44 @@ public class DBInterface {
      * @throws IOException
      * @throws SQLException
      */
-    public static void addChallenge(String title, Date startDate, Date endDate, int totalDistance) throws IOException, SQLException {
+    public static void addCrowdChallenge(int crowdID, String title, Date startDate, Date endDate, int totalDistance) throws IOException, SQLException {
         verifyConnection();
         connection.executeUpdate(
-                "insert into challenge (title, start_date, end_date, completed_distance, total_distance) values (?, ?, ?, ?, ?);",
-                title, startDate, endDate, 0, totalDistance
+                "insert into CrowdChallenge (crowd_id, title, start_date, end_date, completed_distance, total_distance) values (?,?,?,?,?,?)",
+                crowdID, title, startDate, endDate, 0, totalDistance
         );
     }
 
     /**
-     * Remove challenge from database
-     * @param title
-     * @param start
+     * Remove CrowdChallenge from database
+     * @param crowdID
      * @throws IOException
      * @throws SQLException
      */
-    public static void removeChallenge(String title, Date start) throws IOException, SQLException {
+    public static void removeCrowdChallenge(int crowdID) throws IOException, SQLException {
         verifyConnection();
         connection.executeUpdate(
-                "delete from challenge where title = ? and start_date = ?", title, start
+                "delete from CrowdChallenge where crowd_id = ?", crowdID
         );
     }
 
     /**
-     * Retrieve challenge from database. Return null if challenge doesn't exist
-     * @param title
-     * @param start
-     * @return Challenge
+     * Retrieve CrowdChallenge from database
+     * @param crowdID
+     * @return CrowdChallenge
      * @throws IOException
      * @throws SQLException
      */
-    public static Challenge getChallenge(String title, Date start) throws IOException, SQLException {
+    public static CrowdChallenge getCrowdChallenge(int crowdID) throws IOException, SQLException {
         verifyConnection();
         ResultSet rs = connection.executeQuery(
-                "select * from challenge where title = ? and start_date = ?", title, start
+                "select * from CrowdChallenge where crowd_id = ?", crowdID
         );
         if (rs.next()) {
-            return new Challenge(rs.getInt(1), rs.getString(2), rs.getDate(3), rs.getDate(4),
-                    rs.getInt(5), rs.getInt(6));
+            return new CrowdChallenge(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getDate(4),
+                    rs.getDate(5), rs.getInt(6), rs.getInt(7));
         }
         return null;
     }
-
-
 
 }
