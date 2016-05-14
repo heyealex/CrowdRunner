@@ -18,7 +18,7 @@ public class DBInterface {
     /**
      * Connection object used for accessing database
      */
-    private static SQLConnection connection = null;
+    public static SQLConnection connection = null;
 
     /**
      * Initialize connection (optional)
@@ -41,9 +41,11 @@ public class DBInterface {
     private static void verifyConnection() throws IOException, SQLException {
         if (connection == null) {
             connection = new SQLConnection();
-        } else if (connection.isClosed()) {
-            connection.restart();
         }
+        /*
+        else if (connection.isClosed()) {
+            connection.restart();
+        }*/
     }
 
     /**
@@ -201,45 +203,6 @@ public class DBInterface {
     }
 
     /**
-     * For the provided User, attempt to join the given Crowd
-     * @param userEmail
-     * @param crowd
-     * @throws IOException
-     * @throws SQLException
-     */
-    public static void userJoinCrowd(String userEmail, Crowd crowd) throws IOException, SQLException {
-        verifyConnection();
-        User user = getUser(userEmail);
-        if (user == null) {
-            System.err.println("User doesn't exist");
-            return;
-        }
-        String freeCrowdSlot = findFreeSlot(user, crowd.id);
-        if (freeCrowdSlot == null) {
-            System.err.println("No free crowd slot for " + userEmail);
-        } else {
-            connection.executeUpdate(
-                    "update User set " + freeCrowdSlot + " = ? where email = ?",
-                    crowd.id, userEmail
-            );
-        }
-    }
-
-    /**
-     * Returns the column name for the given User in which a new Crowd can be added
-     * @param user
-     * @param id
-     * @return
-     */
-    private static String findFreeSlot(User user, int id) {
-        if (user.crowd1ID == id || user.crowd2ID == id || user.crowd3ID == id) {
-            return null;
-        }
-        return (user.crowd1ID == 0 ? "crowd1_id" : (user.crowd2ID == 0 ? "crowd2_id" :
-                (user.crowd3ID == 0 ? "crowd3_id" : null)));
-    }
-
-    /**
      * Add Activity to database
      * @param userEmail
      * @param startDate
@@ -262,41 +225,12 @@ public class DBInterface {
         );
 
         /* Apply activity benefit to personal challenge */
-        /* TO-DO */
+        applyUserBenefit(userEmail, distance);
 
         /* Apply activity benefit to crowds */
-        if (user.crowd1ID != 0) {
-            applyBenefit(user.crowd1ID, distance);
-        }
-        if (user.crowd2ID != 0) {
-            applyBenefit(user.crowd2ID, distance);
-        }
-        if (user.crowd3ID != 0) {
-            applyBenefit(user.crowd3ID, distance);
-        }
-    }
-
-    /**
-     * Adds Activity distance towards a CrowdChallenge
-     * @param crowdID
-     * @param distance
-     * @throws IOException
-     * @throws SQLException
-     */
-    private static void applyBenefit(int crowdID, int distance) throws IOException, SQLException {
-        Date now = new Date(System.currentTimeMillis());
-        ResultSet rs = connection.executeQuery(
-                "select * from CrowdChallenge where crowd_id = ? and ? between start_date and end_date", crowdID, now
-        );
-        if (rs.next()) {
-            CrowdChallenge challenge = new CrowdChallenge(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getDate(4),
-                    rs.getDate(5), rs.getInt(6), rs.getInt(7));
-            connection.executeUpdate(
-                    "update CrowdChallenge set completed_distance = completed_distance + ? where id = ?", distance, challenge.id
-            );
-        } else {
-            System.err.println("No current challenges");
-        }
+        applyCrowdBenefit(user.crowd1ID, distance);
+        applyCrowdBenefit(user.crowd2ID, distance);
+        applyCrowdBenefit(user.crowd3ID, distance);
     }
 
     /**
@@ -342,6 +276,11 @@ public class DBInterface {
      */
     public static void addCrowdChallenge(int crowdID, String title, Date startDate, Date endDate, int totalDistance) throws IOException, SQLException {
         verifyConnection();
+        CrowdChallenge challenge = getCrowdChallenge(crowdID);
+        if (challenge != null) {
+            /* challenge already exists */
+            return;
+        }
         connection.executeUpdate(
                 "insert into CrowdChallenge (crowd_id, title, start_date, end_date, completed_distance, total_distance) values (?,?,?,?,?,?)",
                 crowdID, title, startDate, endDate, 0, totalDistance
@@ -350,14 +289,14 @@ public class DBInterface {
 
     /**
      * Remove CrowdChallenge from database
-     * @param crowdID
+     * @param id
      * @throws IOException
      * @throws SQLException
      */
-    public static void removeCrowdChallenge(int crowdID) throws IOException, SQLException {
+    public static void removeCrowdChallenge(int id) throws IOException, SQLException {
         verifyConnection();
         connection.executeUpdate(
-                "delete from CrowdChallenge where crowd_id = ?", crowdID
+                "delete from CrowdChallenge where id = ?", id
         );
     }
 
@@ -370,14 +309,142 @@ public class DBInterface {
      */
     public static CrowdChallenge getCrowdChallenge(int crowdID) throws IOException, SQLException {
         verifyConnection();
+        Date now = new Date(System.currentTimeMillis());
         ResultSet rs = connection.executeQuery(
-                "select * from CrowdChallenge where crowd_id = ?", crowdID
+                "select * from CrowdChallenge where crowd_id = ? and ? between start_date and end_date", crowdID, now
         );
         if (rs.next()) {
             return new CrowdChallenge(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getDate(4),
                     rs.getDate(5), rs.getInt(6), rs.getInt(7));
         }
         return null;
+    }
+
+    /**
+     * Add UserChallenge to database
+     * @param userEmail
+     * @param title
+     * @param startDate
+     * @param endDate
+     * @param totalDistance
+     * @throws IOException
+     * @throws SQLException
+     */
+    public static void addUserChallenge(String userEmail, String title, Date startDate, Date endDate, int totalDistance) throws IOException, SQLException {
+        verifyConnection();
+        UserChallenge challenge = getUserChallenge(userEmail);
+        if (challenge != null) {
+            /* challenge already exists */
+            return;
+        }
+        connection.executeUpdate(
+                "insert into UserChallenge (user_email, title, start_date, end_date, completed_distance, total_distance) values (?,?,?,?,?,?)",
+                userEmail, title, startDate, endDate, 0, totalDistance
+        );
+    }
+
+    /**
+     * Remove UserChallenge from database
+     * @param id
+     * @throws IOException
+     * @throws SQLException
+     */
+    public static void removeUserChallenge(int id) throws IOException, SQLException {
+        verifyConnection();
+        connection.executeUpdate(
+                "delete from UserChallenge where id = ?", id
+        );
+    }
+
+    /**
+     * Retrieve UserChallenge from database
+     * @param userEmail
+     * @return UserChallenge
+     * @throws IOException
+     * @throws SQLException
+     */
+    public static UserChallenge getUserChallenge(String userEmail) throws IOException, SQLException {
+        verifyConnection();
+        Date now = new Date(System.currentTimeMillis());
+        ResultSet rs = connection.executeQuery(
+                "select * from UserChallenge where user_email = ? and ? between start_date and end_date", userEmail, now
+        );
+        if (rs.next()) {
+            return new UserChallenge(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getDate(4),
+                    rs.getDate(5), rs.getInt(6), rs.getInt(7));
+        }
+        return null;
+    }
+
+    /**
+     * Returns the column name for the given User in which a new Crowd can be added
+     * @param user
+     * @param id
+     * @return
+     */
+    private static String findFreeSlot(User user, int id) {
+        if (user.crowd1ID == id || user.crowd2ID == id || user.crowd3ID == id) {
+            return null;
+        }
+        return (user.crowd1ID == 0 ? "crowd1_id" : (user.crowd2ID == 0 ? "crowd2_id" :
+                (user.crowd3ID == 0 ? "crowd3_id" : null)));
+    }
+
+    /**
+     * Adds Activity distance towards a CrowdChallenge
+     * @param crowdID
+     * @param distance
+     * @throws IOException
+     * @throws SQLException
+     */
+    private static void applyCrowdBenefit(int crowdID, int distance) throws IOException, SQLException {
+        CrowdChallenge challenge = getCrowdChallenge(crowdID);
+        if (challenge != null) {
+            connection.executeUpdate(
+                    "update CrowdChallenge set completed_distance = completed_distance + ? where id = ?", distance, challenge.id
+            );
+        }
+    }
+
+    /**
+     * Adds Activity distance towards a CrowdChallenge
+     * @param userEmail
+     * @param distance
+     * @throws IOException
+     * @throws SQLException
+     */
+    private static void applyUserBenefit(String userEmail, int distance) throws IOException, SQLException {
+        UserChallenge challenge = getUserChallenge(userEmail);
+        if (challenge != null) {
+            connection.executeUpdate(
+                    "update UserChallenge set completed_distance = completed_distance + ? where user_email = ?", distance, challenge.userEmail
+            );
+        }
+    }
+
+    /**
+     * For the provided User, attempt to join the given Crowd
+     * @param userEmail
+     * @param crowd
+     * @throws IOException
+     * @throws SQLException
+     */
+    public static void userJoinCrowd(String userEmail, Crowd crowd) throws IOException, SQLException {
+        verifyConnection();
+        User user = getUser(userEmail);
+        if (user == null) {
+            System.err.println("User doesn't exist");
+            return;
+        }
+        String freeCrowdSlot = findFreeSlot(user, crowd.id);
+        if (freeCrowdSlot == null) {
+            System.err.println("No free crowd slot for " + userEmail);
+        } else {
+            connection.executeUpdate(
+                    "update User set " + freeCrowdSlot + " = ? where email = ?",
+                    crowd.id, userEmail
+            );
+        }
     }
 
 }

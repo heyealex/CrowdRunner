@@ -2,6 +2,7 @@ import sql.DBInterface;
 import storage.Crowd;
 
 import java.io.IOException;
+import java.io.SyncFailedException;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -13,9 +14,12 @@ import java.sql.Timestamp;
  */
 public class TestDriver {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
         DBInterface.init();
+        Long start = System.currentTimeMillis();
         testScenario1();
+        Long end = System.currentTimeMillis();
+        System.out.println("Scenario1 Time: " + (end - start)/1000.0);
     }
 
     private static void testScenario1() {
@@ -24,6 +28,8 @@ public class TestDriver {
         String user2Email = "user2@test.com";
 
         long now = System.currentTimeMillis();
+        Date startDate = new Date(now);
+        Date endDate = new Date(now + (1000*60*60*24*7));
         Timestamp startTime = new Timestamp(now);
         Timestamp endTime = new Timestamp(now + 1000*60*30);
 
@@ -39,6 +45,7 @@ public class TestDriver {
             DBInterface.addUser(user1Email, "User1", "1700-01-01");
             DBInterface.userJoinCrowd(user1Email, crowd1);
             DBInterface.userJoinCrowd(user1Email, crowd2);
+            DBInterface.addUserChallenge(user1Email, "User1Personal", startDate, endDate, 10000);
             System.out.println("User1 setup: Pass");
 
             /* add user 2 to admin crowd */
@@ -48,12 +55,11 @@ public class TestDriver {
             System.out.println("User2 setup: Pass");
 
             /* add activities */
-            DBInterface.addActivity(adminEmail, startTime, endTime, 4500, "Running");
-            DBInterface.addActivity(user1Email, startTime, endTime, 3500, "Running");
-            DBInterface.addActivity(user2Email, startTime, endTime, 2500, "Running");
+            DBInterface.addActivity(user1Email, startTime, endTime, 5000, "Running");
+            DBInterface.addActivity(user2Email, startTime, endTime, 3000, "Running");
             System.out.println("Added activities: Pass");
         } catch (Exception e) {
-            System.err.println(e);
+            e.printStackTrace();
         }
     }
 
@@ -64,7 +70,7 @@ public class TestDriver {
 
         DBInterface.addCrowd(crowdName, adminEmail);
         Crowd adminCrowd = DBInterface.getCrowd(crowdName, adminEmail);
-        DBInterface.addCrowdChallenge(adminCrowd.id, "AdminChallenge1", startDate, endDate, 12000);
+        DBInterface.addCrowdChallenge(adminCrowd.id, "AdminChallenge1", startDate, endDate, 50000);
         return adminCrowd;
     }
 

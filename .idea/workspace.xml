@@ -21,13 +21,72 @@
     <favorites_list name="CrowdRunner" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/.gitignore">
+    <leaf>
+      <file leaf-file-name="TestDriver.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/TestDriver.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0754717">
-              <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
-              <folding />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="68" column="41" selection-start-line="68" selection-start-column="41" selection-end-line="68" selection-end-column="41" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DBInterface.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/sql/DBInterface.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.1509434">
+              <caret line="14" column="3" selection-start-line="14" selection-start-column="3" selection-end-line="14" selection-end-column="3" />
+              <folding>
+                <element signature="docComment;class#DBInterface#0" expanded="false" />
+                <element signature="docComment;field#connection#0;class#DBInterface#0" expanded="false" />
+                <element signature="docComment;method#init#0;class#DBInterface#0" expanded="false" />
+                <element signature="method#init#0;class#DBInterface#0" expanded="false" />
+                <element signature="docComment;method#verifyConnection#0;class#DBInterface#0" expanded="false" />
+                <element signature="method#verifyConnection#0;class#DBInterface#0" expanded="false" />
+                <element signature="docComment;method#addUser#0;class#DBInterface#0" expanded="false" />
+                <element signature="method#addUser#0;class#DBInterface#0" expanded="false" />
+                <element signature="docComment;method#removeUser#0;class#DBInterface#0" expanded="false" />
+                <element signature="method#removeUser#0;class#DBInterface#0" expanded="false" />
+                <element signature="docComment;method#getUser#0;class#DBInterface#0" expanded="false" />
+                <element signature="method#getUser#0;class#DBInterface#0" expanded="false" />
+                <element signature="docComment;method#addCrowd#0;class#DBInterface#0" expanded="false" />
+                <element signature="method#addCrowd#0;class#DBInterface#0" expanded="false" />
+                <element signature="docComment;method#removeCrowd#0;class#DBInterface#0" expanded="false" />
+                <element signature="method#removeCrowd#0;class#DBInterface#0" expanded="false" />
+                <element signature="docComment;method#getCrowd#0;class#DBInterface#0" expanded="false" />
+                <element signature="method#getCrowd#0;class#DBInterface#0" expanded="false" />
+                <element signature="docComment;method#getCrowd#1;class#DBInterface#0" expanded="false" />
+                <element signature="method#getCrowd#1;class#DBInterface#0" expanded="false" />
+                <element signature="docComment;method#addActivity#0;class#DBInterface#0" expanded="false" />
+                <element signature="method#addActivity#0;class#DBInterface#0" expanded="false" />
+                <element signature="docComment;method#removeActivity#0;class#DBInterface#0" expanded="false" />
+                <element signature="method#removeActivity#0;class#DBInterface#0" expanded="false" />
+                <element signature="docComment;method#getActivity#0;class#DBInterface#0" expanded="false" />
+                <element signature="method#getActivity#0;class#DBInterface#0" expanded="false" />
+                <element signature="docComment;method#addCrowdChallenge#0;class#DBInterface#0" expanded="false" />
+                <element signature="method#addCrowdChallenge#0;class#DBInterface#0" expanded="false" />
+                <element signature="docComment;method#removeCrowdChallenge#0;class#DBInterface#0" expanded="false" />
+                <element signature="method#removeCrowdChallenge#0;class#DBInterface#0" expanded="false" />
+                <element signature="docComment;method#getCrowdChallenge#0;class#DBInterface#0" expanded="false" />
+                <element signature="method#getCrowdChallenge#0;class#DBInterface#0" expanded="false" />
+                <element signature="docComment;method#addUserChallenge#0;class#DBInterface#0" expanded="false" />
+                <element signature="method#addUserChallenge#0;class#DBInterface#0" expanded="false" />
+                <element signature="docComment;method#removeUserChallenge#0;class#DBInterface#0" expanded="false" />
+                <element signature="method#removeUserChallenge#0;class#DBInterface#0" expanded="false" />
+                <element signature="docComment;method#getUserChallenge#0;class#DBInterface#0" expanded="false" />
+                <element signature="method#getUserChallenge#0;class#DBInterface#0" expanded="false" />
+                <element signature="docComment;method#findFreeSlot#0;class#DBInterface#0" expanded="false" />
+                <element signature="method#findFreeSlot#0;class#DBInterface#0" expanded="false" />
+                <element signature="docComment;method#applyCrowdBenefit#0;class#DBInterface#0" expanded="false" />
+                <element signature="method#applyCrowdBenefit#0;class#DBInterface#0" expanded="false" />
+                <element signature="docComment;method#applyUserBenefit#0;class#DBInterface#0" expanded="false" />
+                <element signature="method#applyUserBenefit#0;class#DBInterface#0" expanded="false" />
+                <element signature="docComment;method#userJoinCrowd#0;class#DBInterface#0" expanded="false" />
+                <element signature="method#userJoinCrowd#0;class#DBInterface#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -60,10 +119,10 @@
         <option value="$PROJECT_DIR$/src/storage/Crowd.java" />
         <option value="$PROJECT_DIR$/src/storage/CrowdChallenge.java" />
         <option value="$PROJECT_DIR$/src/storage/UserChallenge.java" />
-        <option value="$PROJECT_DIR$/src/sql/DBInterface.java" />
-        <option value="$PROJECT_DIR$/src/sql/SQLConnection.java" />
-        <option value="$PROJECT_DIR$/src/TestDriver.java" />
         <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/src/TestDriver.java" />
+        <option value="$PROJECT_DIR$/src/sql/SQLConnection.java" />
+        <option value="$PROJECT_DIR$/src/sql/DBInterface.java" />
       </list>
     </option>
   </component>
@@ -98,9 +157,9 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="Scratches" />
       <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -116,6 +175,56 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="CrowdRunner" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="CrowdRunner" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="CrowdRunner" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="CrowdRunner" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="CrowdRunner" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="storage" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="CrowdRunner" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="CrowdRunner" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sql" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -423,7 +532,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1048" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -435,8 +544,7 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.30552423" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13504823" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32839224" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13451232" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -447,6 +555,7 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32839224" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -517,6 +626,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="106" column="5" selection-start-line="106" selection-start-column="5" selection-end-line="106" selection-end-column="5" />
           <folding>
+            <element signature="docComment;class#DBInterface#0" expanded="false" />
             <element signature="docComment;field#connection#0;class#DBInterface#0" expanded="false" />
             <element signature="docComment;method#init#0;class#DBInterface#0" expanded="false" />
             <element signature="method#init#0;class#DBInterface#0" expanded="false" />
@@ -536,14 +646,8 @@
             <element signature="method#getCrowd#0;class#DBInterface#0" expanded="false" />
             <element signature="docComment;method#getCrowd#1;class#DBInterface#0" expanded="false" />
             <element signature="method#getCrowd#1;class#DBInterface#0" expanded="false" />
-            <element signature="docComment;method#userJoinCrowd#0;class#DBInterface#0" expanded="false" />
-            <element signature="method#userJoinCrowd#0;class#DBInterface#0" expanded="false" />
-            <element signature="docComment;method#findFreeSlot#0;class#DBInterface#0" expanded="false" />
-            <element signature="method#findFreeSlot#0;class#DBInterface#0" expanded="false" />
             <element signature="docComment;method#addActivity#0;class#DBInterface#0" expanded="false" />
             <element signature="method#addActivity#0;class#DBInterface#0" expanded="false" />
-            <element signature="docComment;method#applyBenefit#0;class#DBInterface#0" expanded="false" />
-            <element signature="method#applyBenefit#0;class#DBInterface#0" expanded="false" />
             <element signature="docComment;method#removeActivity#0;class#DBInterface#0" expanded="false" />
             <element signature="method#removeActivity#0;class#DBInterface#0" expanded="false" />
             <element signature="docComment;method#getActivity#0;class#DBInterface#0" expanded="false" />
@@ -554,6 +658,20 @@
             <element signature="method#removeCrowdChallenge#0;class#DBInterface#0" expanded="false" />
             <element signature="docComment;method#getCrowdChallenge#0;class#DBInterface#0" expanded="false" />
             <element signature="method#getCrowdChallenge#0;class#DBInterface#0" expanded="false" />
+            <element signature="docComment;method#addUserChallenge#0;class#DBInterface#0" expanded="false" />
+            <element signature="method#addUserChallenge#0;class#DBInterface#0" expanded="false" />
+            <element signature="docComment;method#removeUserChallenge#0;class#DBInterface#0" expanded="false" />
+            <element signature="method#removeUserChallenge#0;class#DBInterface#0" expanded="false" />
+            <element signature="docComment;method#getUserChallenge#0;class#DBInterface#0" expanded="false" />
+            <element signature="method#getUserChallenge#0;class#DBInterface#0" expanded="false" />
+            <element signature="docComment;method#findFreeSlot#0;class#DBInterface#0" expanded="false" />
+            <element signature="method#findFreeSlot#0;class#DBInterface#0" expanded="false" />
+            <element signature="docComment;method#applyCrowdBenefit#0;class#DBInterface#0" expanded="false" />
+            <element signature="method#applyCrowdBenefit#0;class#DBInterface#0" expanded="false" />
+            <element signature="docComment;method#applyUserBenefit#0;class#DBInterface#0" expanded="false" />
+            <element signature="method#applyUserBenefit#0;class#DBInterface#0" expanded="false" />
+            <element signature="docComment;method#userJoinCrowd#0;class#DBInterface#0" expanded="false" />
+            <element signature="method#userJoinCrowd#0;class#DBInterface#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -587,6 +705,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
+            <element signature="docComment;class#DBInterface#0" expanded="false" />
             <element signature="docComment;field#connection#0;class#DBInterface#0" expanded="false" />
             <element signature="docComment;method#init#0;class#DBInterface#0" expanded="false" />
             <element signature="method#init#0;class#DBInterface#0" expanded="false" />
@@ -606,14 +725,8 @@
             <element signature="method#getCrowd#0;class#DBInterface#0" expanded="false" />
             <element signature="docComment;method#getCrowd#1;class#DBInterface#0" expanded="false" />
             <element signature="method#getCrowd#1;class#DBInterface#0" expanded="false" />
-            <element signature="docComment;method#userJoinCrowd#0;class#DBInterface#0" expanded="false" />
-            <element signature="method#userJoinCrowd#0;class#DBInterface#0" expanded="false" />
-            <element signature="docComment;method#findFreeSlot#0;class#DBInterface#0" expanded="false" />
-            <element signature="method#findFreeSlot#0;class#DBInterface#0" expanded="false" />
             <element signature="docComment;method#addActivity#0;class#DBInterface#0" expanded="false" />
             <element signature="method#addActivity#0;class#DBInterface#0" expanded="false" />
-            <element signature="docComment;method#applyBenefit#0;class#DBInterface#0" expanded="false" />
-            <element signature="method#applyBenefit#0;class#DBInterface#0" expanded="false" />
             <element signature="docComment;method#removeActivity#0;class#DBInterface#0" expanded="false" />
             <element signature="method#removeActivity#0;class#DBInterface#0" expanded="false" />
             <element signature="docComment;method#getActivity#0;class#DBInterface#0" expanded="false" />
@@ -624,6 +737,20 @@
             <element signature="method#removeCrowdChallenge#0;class#DBInterface#0" expanded="false" />
             <element signature="docComment;method#getCrowdChallenge#0;class#DBInterface#0" expanded="false" />
             <element signature="method#getCrowdChallenge#0;class#DBInterface#0" expanded="false" />
+            <element signature="docComment;method#addUserChallenge#0;class#DBInterface#0" expanded="false" />
+            <element signature="method#addUserChallenge#0;class#DBInterface#0" expanded="false" />
+            <element signature="docComment;method#removeUserChallenge#0;class#DBInterface#0" expanded="false" />
+            <element signature="method#removeUserChallenge#0;class#DBInterface#0" expanded="false" />
+            <element signature="docComment;method#getUserChallenge#0;class#DBInterface#0" expanded="false" />
+            <element signature="method#getUserChallenge#0;class#DBInterface#0" expanded="false" />
+            <element signature="docComment;method#findFreeSlot#0;class#DBInterface#0" expanded="false" />
+            <element signature="method#findFreeSlot#0;class#DBInterface#0" expanded="false" />
+            <element signature="docComment;method#applyCrowdBenefit#0;class#DBInterface#0" expanded="false" />
+            <element signature="method#applyCrowdBenefit#0;class#DBInterface#0" expanded="false" />
+            <element signature="docComment;method#applyUserBenefit#0;class#DBInterface#0" expanded="false" />
+            <element signature="method#applyUserBenefit#0;class#DBInterface#0" expanded="false" />
+            <element signature="docComment;method#userJoinCrowd#0;class#DBInterface#0" expanded="false" />
+            <element signature="method#userJoinCrowd#0;class#DBInterface#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -639,7 +766,26 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="docComment;method#SQLConnection#0;class#SQLConnection#0" expanded="false" />
+            <element signature="method#SQLConnection#0;class#SQLConnection#0" expanded="false" />
+            <element signature="docComment;method#SQLConnection#1;class#SQLConnection#0" expanded="false" />
+            <element signature="method#SQLConnection#1;class#SQLConnection#0" expanded="false" />
+            <element signature="docComment;method#connect#0;class#SQLConnection#0" expanded="false" />
+            <element signature="method#connect#0;class#SQLConnection#0" expanded="false" />
+            <element signature="docComment;method#executeQuery#0;class#SQLConnection#0" expanded="false" />
+            <element signature="method#executeQuery#0;class#SQLConnection#0" expanded="false" />
+            <element signature="docComment;method#executeUpdate#0;class#SQLConnection#0" expanded="false" />
+            <element signature="method#executeUpdate#0;class#SQLConnection#0" expanded="false" />
+            <element signature="docComment;method#countChars#0;class#SQLConnection#0" expanded="false" />
+            <element signature="method#countChars#0;class#SQLConnection#0" expanded="false" />
+            <element signature="docComment;method#isClosed#0;class#SQLConnection#0" expanded="false" />
+            <element signature="method#isClosed#0;class#SQLConnection#0" expanded="false" />
+            <element signature="docComment;method#close#0;class#SQLConnection#0" expanded="false" />
+            <element signature="method#close#0;class#SQLConnection#0" expanded="false" />
+            <element signature="docComment;method#restart#0;class#SQLConnection#0" expanded="false" />
+            <element signature="method#restart#0;class#SQLConnection#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -691,14 +837,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/storage/Activity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="21" column="37" selection-start-line="21" selection-start-column="37" selection-end-line="21" selection-end-column="37" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/storage/Crowd.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -734,11 +872,64 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/storage/Activity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.53629977">
+          <caret line="21" column="37" selection-start-line="21" selection-start-column="37" selection-end-line="21" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.025761124">
+          <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sql/SQLConnection.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.13207547">
+          <caret line="65" column="9" selection-start-line="65" selection-start-column="9" selection-end-line="65" selection-end-column="9" />
+          <folding>
+            <element signature="docComment;method#SQLConnection#0;class#SQLConnection#0" expanded="false" />
+            <element signature="method#SQLConnection#0;class#SQLConnection#0" expanded="false" />
+            <element signature="docComment;method#SQLConnection#1;class#SQLConnection#0" expanded="false" />
+            <element signature="method#SQLConnection#1;class#SQLConnection#0" expanded="false" />
+            <element signature="docComment;method#connect#0;class#SQLConnection#0" expanded="false" />
+            <element signature="method#connect#0;class#SQLConnection#0" expanded="false" />
+            <element signature="docComment;method#executeQuery#0;class#SQLConnection#0" expanded="false" />
+            <element signature="docComment;method#executeUpdate#0;class#SQLConnection#0" expanded="false" />
+            <element signature="method#executeUpdate#0;class#SQLConnection#0" expanded="false" />
+            <element signature="docComment;method#countChars#0;class#SQLConnection#0" expanded="false" />
+            <element signature="method#countChars#0;class#SQLConnection#0" expanded="false" />
+            <element signature="docComment;method#isClosed#0;class#SQLConnection#0" expanded="false" />
+            <element signature="method#isClosed#0;class#SQLConnection#0" expanded="false" />
+            <element signature="docComment;method#close#0;class#SQLConnection#0" expanded="false" />
+            <element signature="method#close#0;class#SQLConnection#0" expanded="false" />
+            <element signature="docComment;method#restart#0;class#SQLConnection#0" expanded="false" />
+            <element signature="method#restart#0;class#SQLConnection#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/TestDriver.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="68" column="41" selection-start-line="68" selection-start-column="41" selection-end-line="68" selection-end-column="41" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/sql/DBInterface.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6981132">
-          <caret line="381" column="0" selection-start-line="381" selection-start-column="0" selection-end-line="381" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.1509434">
+          <caret line="14" column="3" selection-start-line="14" selection-start-column="3" selection-end-line="14" selection-end-column="3" />
           <folding>
+            <element signature="docComment;class#DBInterface#0" expanded="false" />
             <element signature="docComment;field#connection#0;class#DBInterface#0" expanded="false" />
             <element signature="docComment;method#init#0;class#DBInterface#0" expanded="false" />
             <element signature="method#init#0;class#DBInterface#0" expanded="false" />
@@ -758,14 +949,8 @@
             <element signature="method#getCrowd#0;class#DBInterface#0" expanded="false" />
             <element signature="docComment;method#getCrowd#1;class#DBInterface#0" expanded="false" />
             <element signature="method#getCrowd#1;class#DBInterface#0" expanded="false" />
-            <element signature="docComment;method#userJoinCrowd#0;class#DBInterface#0" expanded="false" />
-            <element signature="method#userJoinCrowd#0;class#DBInterface#0" expanded="false" />
-            <element signature="docComment;method#findFreeSlot#0;class#DBInterface#0" expanded="false" />
-            <element signature="method#findFreeSlot#0;class#DBInterface#0" expanded="false" />
             <element signature="docComment;method#addActivity#0;class#DBInterface#0" expanded="false" />
             <element signature="method#addActivity#0;class#DBInterface#0" expanded="false" />
-            <element signature="docComment;method#applyBenefit#0;class#DBInterface#0" expanded="false" />
-            <element signature="method#applyBenefit#0;class#DBInterface#0" expanded="false" />
             <element signature="docComment;method#removeActivity#0;class#DBInterface#0" expanded="false" />
             <element signature="method#removeActivity#0;class#DBInterface#0" expanded="false" />
             <element signature="docComment;method#getActivity#0;class#DBInterface#0" expanded="false" />
@@ -776,52 +961,21 @@
             <element signature="method#removeCrowdChallenge#0;class#DBInterface#0" expanded="false" />
             <element signature="docComment;method#getCrowdChallenge#0;class#DBInterface#0" expanded="false" />
             <element signature="method#getCrowdChallenge#0;class#DBInterface#0" expanded="false" />
+            <element signature="docComment;method#addUserChallenge#0;class#DBInterface#0" expanded="false" />
+            <element signature="method#addUserChallenge#0;class#DBInterface#0" expanded="false" />
+            <element signature="docComment;method#removeUserChallenge#0;class#DBInterface#0" expanded="false" />
+            <element signature="method#removeUserChallenge#0;class#DBInterface#0" expanded="false" />
+            <element signature="docComment;method#getUserChallenge#0;class#DBInterface#0" expanded="false" />
+            <element signature="method#getUserChallenge#0;class#DBInterface#0" expanded="false" />
+            <element signature="docComment;method#findFreeSlot#0;class#DBInterface#0" expanded="false" />
+            <element signature="method#findFreeSlot#0;class#DBInterface#0" expanded="false" />
+            <element signature="docComment;method#applyCrowdBenefit#0;class#DBInterface#0" expanded="false" />
+            <element signature="method#applyCrowdBenefit#0;class#DBInterface#0" expanded="false" />
+            <element signature="docComment;method#applyUserBenefit#0;class#DBInterface#0" expanded="false" />
+            <element signature="method#applyUserBenefit#0;class#DBInterface#0" expanded="false" />
+            <element signature="docComment;method#userJoinCrowd#0;class#DBInterface#0" expanded="false" />
+            <element signature="method#userJoinCrowd#0;class#DBInterface#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/sql/SQLConnection.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7358491">
-          <caret line="164" column="1" selection-start-line="164" selection-start-column="1" selection-end-line="164" selection-end-column="1" />
-          <folding>
-            <element signature="docComment;method#SQLConnection#0;class#SQLConnection#0" expanded="false" />
-            <element signature="method#SQLConnection#0;class#SQLConnection#0" expanded="false" />
-            <element signature="docComment;method#SQLConnection#1;class#SQLConnection#0" expanded="false" />
-            <element signature="method#SQLConnection#1;class#SQLConnection#0" expanded="false" />
-            <element signature="docComment;method#connect#0;class#SQLConnection#0" expanded="false" />
-            <element signature="method#connect#0;class#SQLConnection#0" expanded="false" />
-            <element signature="docComment;method#executeQuery#0;class#SQLConnection#0" expanded="false" />
-            <element signature="method#executeQuery#0;class#SQLConnection#0" expanded="false" />
-            <element signature="docComment;method#executeUpdate#0;class#SQLConnection#0" expanded="false" />
-            <element signature="method#executeUpdate#0;class#SQLConnection#0" expanded="false" />
-            <element signature="docComment;method#countChars#0;class#SQLConnection#0" expanded="false" />
-            <element signature="method#countChars#0;class#SQLConnection#0" expanded="false" />
-            <element signature="docComment;method#isClosed#0;class#SQLConnection#0" expanded="false" />
-            <element signature="method#isClosed#0;class#SQLConnection#0" expanded="false" />
-            <element signature="docComment;method#close#0;class#SQLConnection#0" expanded="false" />
-            <element signature="method#close#0;class#SQLConnection#0" expanded="false" />
-            <element signature="docComment;method#restart#0;class#SQLConnection#0" expanded="false" />
-            <element signature="method#restart#0;class#SQLConnection#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/TestDriver.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.03773585">
-          <caret line="50" column="33" selection-start-line="50" selection-start-column="33" selection-end-line="50" selection-end-column="33" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0754717">
-          <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
