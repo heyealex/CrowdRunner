@@ -7,6 +7,8 @@ import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Contains functions that manipulate and query the database
@@ -42,10 +44,10 @@ public class DBInterface {
         if (connection == null) {
             connection = new SQLConnection();
         }
-        /*
+
         else if (connection.isClosed()) {
             connection.restart();
-        }*/
+        }
     }
 
     /**
@@ -445,6 +447,45 @@ public class DBInterface {
                     crowd.id, userEmail
             );
         }
+    }
+
+    /**
+     * Retrieves the last n activities in reverse chronological order for this given User email
+     * @param userEmail
+     * @return List<Activity>
+     * @throws IOException
+     * @throws SQLException
+     */
+    public static List<Activity> getLastActivities(String userEmail, int n) throws IOException, SQLException {
+        verifyConnection();
+        ResultSet rs = connection.executeQuery(
+                "select * from Activity where email = ? order by start_date DESC limit ?", userEmail, n
+        );
+        List<Activity> activities = new ArrayList<>();
+        while (rs.next()) {
+            Activity a = new Activity(rs.getInt(1), rs.getString(2), rs.getTimestamp(3), rs.getTimestamp(4),
+                    rs.getInt(5), rs.getString(6));
+            activities.add(a);
+        }
+        return activities;
+    }
+
+    /**
+     * Retrieve the total distance logged for this User email
+     * @param userEmail
+     * @return int
+     * @throws IOException
+     * @throws SQLException
+     */
+    public static int getTotalDistance(String userEmail) throws IOException, SQLException {
+        verifyConnection();
+        ResultSet rs = connection.executeQuery(
+                "select sum(distance) from Activity where user_email = ?", userEmail
+        );
+        if (rs.next()) {
+            return rs.getInt(1);
+        }
+        return 0;
     }
 
 }
